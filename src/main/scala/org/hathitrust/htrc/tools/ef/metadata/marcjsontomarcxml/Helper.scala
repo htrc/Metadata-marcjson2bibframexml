@@ -48,7 +48,7 @@ object Helper {
     val result = new StreamResult(xmlStringWriter)
     val transformerFactory = TransformerFactory.newInstance()
     if (transformerFactory.isInstanceOf[net.sf.saxon.TransformerFactoryImpl])
-      transformerFactory.setAttribute(FeatureKeys.RECOVERY_POLICY, new Integer(Configuration.RECOVER_SILENTLY))
+      transformerFactory.setAttribute(FeatureKeys.RECOVERY_POLICY, Integer.valueOf(Configuration.RECOVER_SILENTLY))
     val transformer = transformerFactory.newTransformer(xslSource)
     transformer.transform(xmlSource, result)
 

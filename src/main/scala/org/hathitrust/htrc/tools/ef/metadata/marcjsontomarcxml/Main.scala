@@ -27,15 +27,8 @@ object Main {
   val oclcMarker: String = "(OCoLC)"
   val oclcRegex: Regex = raw"""${Regex.quote(oclcMarker)}(.*)""".r
 
-  // workaround for java.lang.VerifyError: [...] Illegal target of jump or branch
-  // see https://stackoverflow.com/a/49991816/1112620
-  Instruction.setComparator((i1: Instruction, i2: Instruction) => i1 match {
-    case _: BranchInstruction => i1 == i2
-    case _ => InstructionComparator.DEFAULT.equals(i1, i2)
-  })
-
   def main(args: Array[String]): Unit = {
-    val conf = new Conf(args)
+    val conf = new Conf(args.toIndexedSeq)
     val inputFile = conf.inputFile.toOption
     val outputPath = conf.outputPath().toString
 
