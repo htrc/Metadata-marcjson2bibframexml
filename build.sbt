@@ -67,7 +67,7 @@ lazy val `marcjson2bibframexml` = (project in file("."))
       "ch.qos.logback"                %  "logback-classic"      % "1.4.5",
       "org.codehaus.janino"           %  "janino"               % "3.0.16",  // 3.1.x causes java.lang.ClassNotFoundException: org.codehaus.janino.InternalCompilerException
       "org.scalacheck"                %% "scalacheck"           % "1.17.0"      % Test,
-      "org.scalatest"                 %% "scalatest"            % "3.2.14"       % Test
+      "org.scalatest"                 %% "scalatest"            % "3.2.15"      % Test
     ),
 //    dependencyOverrides ++= Seq(
 //      "com.google.guava" % "guava" % "15.0",
