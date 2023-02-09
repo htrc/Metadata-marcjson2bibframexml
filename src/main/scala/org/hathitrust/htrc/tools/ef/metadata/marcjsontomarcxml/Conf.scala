@@ -1,8 +1,8 @@
 package org.hathitrust.htrc.tools.ef.metadata.marcjsontomarcxml
 
-import java.io.File
+import org.rogach.scallop.{Scallop, ScallopConf, ScallopHelpFormatter, ScallopOption, SimpleOption}
 
-import org.rogach.scallop.{Scallop, ScallopConf, ScallopHelpFormatter, ScallopOption, SimpleOption, Subcommand}
+import java.io.File
 
 class Conf(args: Seq[String]) extends ScallopConf(args) {
   appendDefaultToDescription = true

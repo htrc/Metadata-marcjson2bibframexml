@@ -2,12 +2,11 @@ import Dependencies._
 
 showCurrentGitBranch
 
-git.useGitDescribe := true
-
-lazy val commonSettings = Seq(
+inThisBuild(Seq(
   organization := "org.hathitrust.htrc",
   organizationName := "HathiTrust Research Center",
   organizationHomepage := Some(url("https://www.hathitrust.org/htrc")),
+  maintainer := "Boris Capitanu <capitanu@illinois.edu>",
   scalaVersion := "2.13.10",
   scalacOptions ++= Seq(
     "-feature",
@@ -26,21 +25,29 @@ lazy val commonSettings = Seq(
     ("Git-Version", git.gitDescribedVersion.value.getOrElse("N/A")),
     ("Git-Dirty", git.gitUncommittedChanges.value.toString),
     ("Build-Date", new java.util.Date().toString)
+  ),
+  versionScheme := Some("semver-spec"),
+  credentials += Credentials(
+    "Sonatype Nexus Repository Manager", // realm
+    "nexus.htrc.illinois.edu", // host
+    "drhtrc", // user
+    sys.env.getOrElse("HTRC_NEXUS_DRHTRC_PWD", "abc123") // password
   )
-)
+))
 
 lazy val ammoniteSettings = Seq(
   libraryDependencies +=
     {
       val version = scalaBinaryVersion.value match {
         case "2.10" => "1.0.3"
-        case _ ⇒  "2.5.5"
+        case "2.11" => "1.6.7"
+        case _ ⇒  "2.5.6"
       }
       "com.lihaoyi" % "ammonite" % version % Test cross CrossVersion.full
     },
   Test / sourceGenerators += Def.task {
     val file = (Test / sourceManaged).value / "amm.scala"
-    IO.write(file, """object amm extends App { ammonite.Main.main(args) }""")
+    IO.write(file, """object amm extends App { ammonite.AmmoniteMain.main(args) }""")
     Seq(file)
   }.taskValue,
   connectInput := true,
@@ -49,7 +56,6 @@ lazy val ammoniteSettings = Seq(
 
 lazy val `marcjson2bibframexml` = (project in file("."))
   .enablePlugins(GitVersioning, GitBranchPrompt, JavaAppPackaging)
-  .settings(commonSettings)
   .settings(ammoniteSettings)
 //  .settings(spark("3.3.1"))
   .settings(spark_dev("3.3.1"))
@@ -62,12 +68,13 @@ lazy val `marcjson2bibframexml` = (project in file("."))
       "org.marc4j"                    %  "marc4j"               % "2.9.2",
 //      "org.scala-lang.modules"        %% "scala-xml"            % "1.2.0",
       "org.hathitrust.htrc"           %% "scala-utils"          % "2.13",
-      "org.hathitrust.htrc"           %% "spark-utils"          % "1.4",
+      "org.hathitrust.htrc"           %% "spark-utils"          % "1.5.1",
       "com.github.nscala-time"        %% "nscala-time"          % "2.32.0",
       "ch.qos.logback"                %  "logback-classic"      % "1.4.5",
       "org.codehaus.janino"           %  "janino"               % "3.0.16",  // 3.1.x causes java.lang.ClassNotFoundException: org.codehaus.janino.InternalCompilerException
       "org.scalacheck"                %% "scalacheck"           % "1.17.0"      % Test,
-      "org.scalatest"                 %% "scalatest"            % "3.2.15"      % Test
+      "org.scalatest"                 %% "scalatest"            % "3.2.15"      % Test,
+      "org.scalatestplus"             %% "scalacheck-1-15"      % "3.2.11.0"    % Test
     ),
 //    dependencyOverrides ++= Seq(
 //      "com.google.guava" % "guava" % "15.0",
