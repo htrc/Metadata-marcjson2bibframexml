@@ -6,7 +6,6 @@ inThisBuild(Seq(
   organization := "org.hathitrust.htrc",
   organizationName := "HathiTrust Research Center",
   organizationHomepage := Some(url("https://www.hathitrust.org/htrc")),
-  maintainer := "Boris Capitanu <capitanu@illinois.edu>",
   scalaVersion := "2.13.10",
   scalacOptions ++= Seq(
     "-feature",
