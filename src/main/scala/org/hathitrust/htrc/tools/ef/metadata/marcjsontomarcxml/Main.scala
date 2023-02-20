@@ -75,9 +75,9 @@ object Main {
         implicit val formats: DefaultFormats = DefaultFormats
 
         val marcRecord = parse(jsonLine)
-        val volId = (marcRecord \ "fields" \\ "974" \\ "u").extract[String]
+        val volIds = (marcRecord \ "fields" \ "974" \ "subfields" \ "u").extract[List[String]]
 
-        volId -> jsonLine
+        volIds.head -> jsonLine
       }(errorsParseMarcJson)
 
 //    val marcJsonsSignaturesRDD = marcJsonTextsRDD.tryMap { jsonLine =>
