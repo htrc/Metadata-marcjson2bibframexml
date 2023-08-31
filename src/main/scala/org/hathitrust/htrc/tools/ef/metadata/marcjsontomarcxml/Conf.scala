@@ -57,6 +57,12 @@ class Conf(args: Seq[String]) extends ScallopConf(args) {
     argName = "DIR"
   )
 
+  val saveAsSeqFile: ScallopOption[Boolean] = opt[Boolean]("save-as-seq",
+    descr = "Saves the EF files as Hadoop sequence files",
+    required = false,
+    default = Some(false)
+  )
+
   val inputFile: ScallopOption[File] = trailArg[File]("input",
     descr = "The MARC-in-JSON file to process (if not provided, will read input from stdin)"
   )

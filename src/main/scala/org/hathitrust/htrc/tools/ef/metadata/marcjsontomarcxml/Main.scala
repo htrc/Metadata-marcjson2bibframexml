@@ -31,6 +31,7 @@ object Main {
     val conf = new Conf(args.toIndexedSeq)
     val inputFile = conf.inputFile.toOption
     val outputPath = conf.outputPath().toString
+    val saveAsSeqFile = conf.saveAsSeqFile()
 
     conf.outputPath().mkdirs()
 
@@ -141,12 +142,14 @@ object Main {
 //    val bibframeXmlRDD = marcJsonsCleanedRDD.tryMapValues(Helper.marcJson2BibframeXml)(errorsConvertMarc2Bibframe)
     val bibframeXmlRDD = volIdMarcJsonlinePairRDD.tryMapValues(Helper.marcJson2BibframeXml)(errorsConvertMarc2Bibframe)
 
-    bibframeXmlRDD.saveAsSequenceFile(outputPath + "/output")
-
-//    bibframeXmlRDD.foreach { case (id, xml) =>
-//      val cleanId = id.replaceAllLiterally(":", "+").replaceAllLiterally("/", "=")
-//      FileUtils.writeStringToFile(new File(outputPath, s"$cleanId.xml"), xml, StandardCharsets.UTF_8)
-//    }
+    if (saveAsSeqFile)
+      bibframeXmlRDD.saveAsSequenceFile(outputPath + "/output")
+    else {
+      bibframeXmlRDD.foreach { case (id, xml) =>
+        val cleanId = id.replace(":", "+").replace("/", "=")
+        FileUtils.writeStringToFile(new File(outputPath, s"$cleanId.xml"), xml, StandardCharsets.UTF_8)
+      }
+    }
 
 //    marcJsonsCleanedRDD.saveAsTextFile(outputPath + "/output")
 
