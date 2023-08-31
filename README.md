@@ -22,6 +22,8 @@ marcjson2bibframexml
                               input set of HT IDs into, for increased
                               parallelism
   -o, --output  <DIR>         Write the output to DIR
+  -s, --save-as-seq           (Optional) Saves the EF files as Hadoop sequence
+                              files
       --spark-log  <FILE>     (Optional) Where to write logging output from
                               Spark to
   -h, --help                  Show help message
