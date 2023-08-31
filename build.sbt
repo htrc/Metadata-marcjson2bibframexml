@@ -64,7 +64,7 @@ lazy val `marcjson2bibframexml` = (project in file("."))
     licenses += "Apache2" -> url("http://www.apache.org/licenses/LICENSE-2.0"),
     libraryDependencies ++= Seq(
       "org.rogach"                    %% "scallop"              % "5.0.0",
-      "org.marc4j"                    %  "marc4j"               % "2.9.2",
+      "org.marc4j"                    %  "marc4j"               % "2.9.5",
       "org.hathitrust.htrc"           %% "scala-utils"          % "2.14.4",
       "org.hathitrust.htrc"           %% "spark-utils"          % "1.5.3",
       "com.github.nscala-time"        %% "nscala-time"          % "2.32.0",

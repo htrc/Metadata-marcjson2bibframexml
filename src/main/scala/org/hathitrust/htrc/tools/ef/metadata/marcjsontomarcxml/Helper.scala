@@ -9,7 +9,7 @@ import net.sf.saxon.Configuration
 import net.sf.saxon.lib.FeatureKeys
 import org.apache.commons.io.IOUtils
 import org.hathitrust.htrc.tools.ef.metadata.marcjsontomarcxml.Main.marc2BibframeXsl
-import org.hathitrust.htrc.tools.scala.io.IOUtils.using
+import scala.util.Using
 import org.marc4j.{MarcJsonReader, MarcXmlWriter}
 import org.slf4j.{Logger, LoggerFactory}
 
@@ -26,14 +26,14 @@ object Helper {
   def readStdIn(): Seq[String] = Iterator.continually(StdIn.readLine()).takeWhile(_ != null).toList
 
   def marcJson2MarcXml(jsonLine: String): Array[Byte] = {
-    val marcRecord = using(new StringReader(jsonLine)) { sr =>
+    val marcRecord = Using.resource(new StringReader(jsonLine)) { sr =>
       val marcJsonReader = new MarcJsonReader(sr)
       if (marcJsonReader.hasNext) marcJsonReader.next() else null
     }
     assert(marcRecord != null, s"Could not find MARC record in line: $jsonLine")
 
     val baos = new ByteArrayOutputStream()
-    using(new MarcXmlWriter(baos))(_.write(marcRecord))
+    Using.resource(new MarcXmlWriter(baos) with AutoCloseable)(_.write(marcRecord))
 
     baos.toByteArray
   }
