@@ -1,4 +1,4 @@
-import Dependencies._
+import Dependencies.*
 
 showCurrentGitBranch
 
@@ -6,7 +6,7 @@ inThisBuild(Seq(
   organization := "org.hathitrust.htrc",
   organizationName := "HathiTrust Research Center",
   organizationHomepage := Some(url("https://www.hathitrust.org/htrc")),
-  scalaVersion := "2.13.10",
+  scalaVersion := "2.13.11",
   scalacOptions ++= Seq(
     "-feature",
     "-deprecation",
@@ -40,7 +40,7 @@ lazy val ammoniteSettings = Seq(
       val version = scalaBinaryVersion.value match {
         case "2.10" => "1.0.3"
         case "2.11" => "1.6.7"
-        case _ ⇒  "2.5.6"
+        case _ ⇒  "2.5.9"
       }
       "com.lihaoyi" % "ammonite" % version % Test cross CrossVersion.full
     },
@@ -56,23 +56,22 @@ lazy val ammoniteSettings = Seq(
 lazy val `marcjson2bibframexml` = (project in file("."))
   .enablePlugins(GitVersioning, GitBranchPrompt, JavaAppPackaging)
   .settings(ammoniteSettings)
-//  .settings(spark("3.3.1"))
-  .settings(spark_dev("3.3.1"))
+//  .settings(spark("3.4.1"))
+  .settings(spark_dev("3.4.1"))
   .settings(
     name := "marcjson2bibframexml",
     description := "Used to convert MARC-in-JSON to BIBFRAME-XML",
     licenses += "Apache2" -> url("http://www.apache.org/licenses/LICENSE-2.0"),
     libraryDependencies ++= Seq(
-      "org.rogach"                    %% "scallop"              % "4.1.0",
+      "org.rogach"                    %% "scallop"              % "5.0.0",
       "org.marc4j"                    %  "marc4j"               % "2.9.2",
-//      "org.scala-lang.modules"        %% "scala-xml"            % "1.2.0",
-      "org.hathitrust.htrc"           %% "scala-utils"          % "2.13",
-      "org.hathitrust.htrc"           %% "spark-utils"          % "1.5.2",
+      "org.hathitrust.htrc"           %% "scala-utils"          % "2.14.4",
+      "org.hathitrust.htrc"           %% "spark-utils"          % "1.5.3",
       "com.github.nscala-time"        %% "nscala-time"          % "2.32.0",
-      "ch.qos.logback"                %  "logback-classic"      % "1.4.5",
+      "ch.qos.logback"                %  "logback-classic"      % "1.3.11",
       "org.codehaus.janino"           %  "janino"               % "3.0.16",  // 3.1.x causes java.lang.ClassNotFoundException: org.codehaus.janino.InternalCompilerException
       "org.scalacheck"                %% "scalacheck"           % "1.17.0"      % Test,
-      "org.scalatest"                 %% "scalatest"            % "3.2.15"      % Test,
+      "org.scalatest"                 %% "scalatest"            % "3.2.16"      % Test,
       "org.scalatestplus"             %% "scalacheck-1-15"      % "3.2.11.0"    % Test
     ),
 //    dependencyOverrides ++= Seq(
