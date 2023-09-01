@@ -68,8 +68,8 @@ lazy val `marcjson2bibframexml` = (project in file("."))
       "org.hathitrust.htrc"           %% "scala-utils"          % "2.14.4",
       "org.hathitrust.htrc"           %% "spark-utils"          % "1.5.3",
       "com.github.nscala-time"        %% "nscala-time"          % "2.32.0",
-      "ch.qos.logback"                %  "logback-classic"      % "1.3.11",
-      "org.codehaus.janino"           %  "janino"               % "3.0.16",  // 3.1.x causes java.lang.ClassNotFoundException: org.codehaus.janino.InternalCompilerException
+      "ch.qos.logback"                %  "logback-classic"      % "1.3.11",  // 1.3.x is for Java8, 1.4.x for Java11
+      "org.codehaus.janino"           %  "janino"               % "3.1.10",
       "org.scalacheck"                %% "scalacheck"           % "1.17.0"      % Test,
       "org.scalatest"                 %% "scalatest"            % "3.2.16"      % Test,
       "org.scalatestplus"             %% "scalacheck-1-15"      % "3.2.11.0"    % Test
