@@ -6,11 +6,12 @@ import com.gilt.gfc.time.Timer
 import com.sun.org.apache.bcel.internal.generic._
 import org.apache.commons.io.FileUtils
 import org.apache.hadoop.fs.Path
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 import org.hathitrust.htrc.tools.ef.metadata.marcjsontomarcxml.Helper.{logger, readStdIn}
 import org.hathitrust.htrc.tools.spark.errorhandling.ErrorAccumulator
 import org.hathitrust.htrc.tools.spark.errorhandling.RddExtensions._
+import org.hathitrust.htrc.tools.spark.utils.Helper.stopSparkAndExit
 import org.json4s.DefaultFormats
 import org.json4s.JsonAST._
 import org.json4s.JsonDSL._
@@ -25,15 +26,6 @@ object Main {
 //  val marc2BibframeXsl = "/xsl/marc2bibframe2.xsl"
   val oclcMarker: String = "(OCoLC)"
   val oclcRegex: Regex = raw"""${Regex.quote(oclcMarker)}(.*)""".r
-
-  def stopSparkAndExit(sc: SparkContext, exitCode: Int = 0): Unit = {
-    try {
-      sc.stop()
-    }
-    finally {
-      System.exit(exitCode)
-    }
-  }
 
   def main(args: Array[String]): Unit = {
     val conf = new Conf(args.toIndexedSeq)
