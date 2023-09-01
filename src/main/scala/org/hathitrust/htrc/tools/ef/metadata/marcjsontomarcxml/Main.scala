@@ -36,10 +36,7 @@ object Main {
     conf.outputPath().mkdirs()
 
     // set up logging destination
-    conf.sparkLog.toOption match {
-      case Some(logFile) => System.setProperty("spark.logFile", logFile)
-      case None =>
-    }
+    conf.sparkLog.foreach(System.setProperty("spark.logFile", _))
     System.setProperty("logLevel", conf.logLevel().toUpperCase)
 
     // set up Spark context
