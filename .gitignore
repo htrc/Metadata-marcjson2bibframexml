@@ -13,4 +13,4 @@ metals.sbt
 *.sublime-workspace
 *.iml
 *.log
-/out/
+/data/
