@@ -74,8 +74,7 @@ lazy val `marcjson2bibframexml` = (project in file("."))
       "org.scalatest"                 %% "scalatest"            % "3.2.16"      % Test,
       "org.scalatestplus"             %% "scalacheck-1-15"      % "3.2.11.0"    % Test
     ),
-//    dependencyOverrides ++= Seq(
-//      "com.google.guava" % "guava" % "15.0",
-//      "com.fasterxml.jackson.core" % "jackson-databind" % "2.6.7.1"
-//    )
+    Test / parallelExecution := false,
+    Test / fork := true,
+    evictionErrorLevel := Level.Info
   )
