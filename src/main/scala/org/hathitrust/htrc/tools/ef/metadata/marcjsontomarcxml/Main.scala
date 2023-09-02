@@ -49,6 +49,11 @@ object Main {
 
     val sc = spark.sparkContext
 
+    val numPartitions = conf.numPartitions.getOrElse {
+      if (inputFile.isDefined) sc.defaultMinPartitions
+      else sc.defaultParallelism
+    }
+
     try {
       logger.info("Starting...")
       logger.info(s"Spark master: $sparkMaster")
@@ -58,11 +63,6 @@ object Main {
       val t0 = Timer.nanoClock()
 
       conf.outputPath().mkdirs()
-
-      val numPartitions = conf.numPartitions.getOrElse {
-        if (inputFile.isDefined) sc.defaultMinPartitions
-        else sc.defaultParallelism
-      }
 
       val marcJsonTextsRDD = inputFile match {
         case Some(file) => sc.textFile(file.toString, minPartitions = numPartitions)
