@@ -75,9 +75,9 @@ object Main {
           implicit val formats: DefaultFormats = DefaultFormats
 
           val marcRecord = parse(jsonLine)
-          val volIds = (marcRecord \ "fields" \ "974" \ "subfields" \ "u").extract[List[String]]
+          val volIds = (marcRecord \ "fields" \ "974" \ "subfields" \ "u").extract[Set[String]]
 
-          volIds.head -> jsonLine
+          volIds.mkString("|") -> jsonLine
         }(errorsParseMarcJson)
 
       //    val marcJsonsSignaturesRDD = marcJsonTextsRDD.tryMap { jsonLine =>
@@ -144,10 +144,14 @@ object Main {
       if (saveAsSeqFile)
         bibframeXmlRDD.saveAsSequenceFile(outputPath + "/output")
       else {
-        bibframeXmlRDD.foreach { case (id, xml) =>
-          val cleanId = id.replace(":", "+").replace("/", "=")
-          FileUtils.writeStringToFile(new File(outputPath, s"$cleanId.xml"), xml, StandardCharsets.UTF_8)
-        }
+        bibframeXmlRDD
+          .flatMap { case (ids, xml) =>
+            ids.split('|').map(id => id -> xml)
+          }
+          .foreach { case (id, xml) =>
+            val cleanId = id.replace(":", "+").replace("/", "=")
+            FileUtils.writeStringToFile(new File(outputPath, s"$cleanId.xml"), xml, StandardCharsets.UTF_8)
+          }
       }
 
       //    marcJsonsCleanedRDD.saveAsTextFile(outputPath + "/output")
