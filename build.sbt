@@ -6,7 +6,7 @@ inThisBuild(Seq(
   organization := "org.hathitrust.htrc",
   organizationName := "HathiTrust Research Center",
   organizationHomepage := Some(url("https://www.hathitrust.org/htrc")),
-  scalaVersion := "2.13.11",
+  scalaVersion := "2.13.12",
   scalacOptions ++= Seq(
     "-feature",
     "-deprecation",
@@ -40,7 +40,7 @@ lazy val ammoniteSettings = Seq(
       val version = scalaBinaryVersion.value match {
         case "2.10" => "1.0.3"
         case "2.11" => "1.6.7"
-        case _ ⇒  "2.5.9"
+        case _ ⇒  "2.5.11"
       }
       "com.lihaoyi" % "ammonite" % version % Test cross CrossVersion.full
     },
@@ -63,15 +63,15 @@ lazy val `marcjson2bibframexml` = (project in file("."))
     description := "Used to convert MARC-in-JSON to BIBFRAME-XML",
     licenses += "Apache2" -> url("http://www.apache.org/licenses/LICENSE-2.0"),
     libraryDependencies ++= Seq(
-      "org.rogach"                    %% "scallop"              % "5.0.0",
+      "org.rogach"                    %% "scallop"              % "5.0.1",
       "org.marc4j"                    %  "marc4j"               % "2.9.5",
       "org.hathitrust.htrc"           %% "scala-utils"          % "2.14.4",
       "org.hathitrust.htrc"           %% "spark-utils"          % "1.5.4",
       "com.github.nscala-time"        %% "nscala-time"          % "2.32.0",
       "ch.qos.logback"                %  "logback-classic"      % "1.3.11",  // 1.3.x is for Java8, 1.4.x for Java11
-      "org.codehaus.janino"           %  "janino"               % "3.1.10",
+      "org.codehaus.janino"           %  "janino"               % "3.1.11",
       "org.scalacheck"                %% "scalacheck"           % "1.17.0"      % Test,
-      "org.scalatest"                 %% "scalatest"            % "3.2.16"      % Test,
+      "org.scalatest"                 %% "scalatest"            % "3.2.17"      % Test,
       "org.scalatestplus"             %% "scalacheck-1-15"      % "3.2.11.0"    % Test
     ),
     Test / parallelExecution := false,
