@@ -65,8 +65,8 @@ lazy val `marcjson2bibframexml` = (project in file("."))
     libraryDependencies ++= Seq(
       "org.rogach"                    %% "scallop"              % "5.1.0",
       "org.marc4j"                    %  "marc4j"               % "2.9.5",
-      "org.hathitrust.htrc"           %% "scala-utils"          % "2.14.4",
-      "org.hathitrust.htrc"           %% "spark-utils"          % "1.5.4",
+      "org.hathitrust.htrc"           %% "scala-utils"          % "2.15.0",
+      "org.hathitrust.htrc"           %% "spark-utils"          % "1.6.0",
       "com.github.nscala-time"        %% "nscala-time"          % "2.32.0",
       "ch.qos.logback"                %  "logback-classic"      % "1.5.6",
       "org.codehaus.janino"           %  "janino"               % "3.1.12",
