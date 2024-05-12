@@ -1,4 +1,4 @@
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/htrc/Metadata-marcjson2bibframexml/ci.yml?branch=main)](https://github.com/htrc/Metadata-marcjson2bibframexml/actions/workflows/ci.yml)
+[![Scala CI](https://github.com/htrc/Metadata-marcjson2bibframexml/actions/workflows/ci.yml/badge.svg)](https://github.com/htrc/Metadata-marcjson2bibframexml/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/github/htrc/Metadata-marcjson2bibframexml/graph/badge.svg?token=U7QSqR9yri)](https://codecov.io/github/htrc/Metadata-marcjson2bibframexml)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/htrc/Metadata-marcjson2bibframexml?include_prereleases&sort=semver)](https://github.com/htrc/Metadata-marcjson2bibframexml/releases/latest)
 
